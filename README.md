@@ -10,6 +10,8 @@ This project demonstrates a realistic phishing attack using a malicious .ics cal
 | **Network**   | Bridged Mode (same subnet for both VMs) | **Network**   |Allows both VMs to share network with host |
 | **IDS**   | Suricata | **On Ubuntu**   | Detects C2 traffic from payload |
 
+## 📸Vm Network Settings
+![Ubuntu](https://github.com/user-attachments/Project/Ubuntu_network.JPG)
 
 
 
