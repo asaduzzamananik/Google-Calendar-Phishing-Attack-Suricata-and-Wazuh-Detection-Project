@@ -32,11 +32,11 @@ ls -lh newpayload.exe
 ```
 **Move the payload to the Apache web root:**
 ```bash
-sudo mv payload.exe /var/www/html/
+sudo mv newpayload.exe /var/www/html/
 ```
 **Set correct permissions (optional but good)**
 ```bash
-sudo chmod 755 /var/www/html/payload.exe
+sudo chmod 755 /var/www/html/newpayload.exe
 ```
 **Start Apache web server:**
 ```bash
