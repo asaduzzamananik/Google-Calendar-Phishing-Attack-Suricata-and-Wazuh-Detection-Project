@@ -16,11 +16,6 @@ This project demonstrates a realistic phishing attack using a malicious .ics cal
 ## 📸🌐Windows 10 Network Config
 ![windows 10 network](https://github.com/user-attachments/assets/d1c0d41c-61b2-4159-aa04-b044fee20eb6)
 
-## 📸🌐Ubuntu Ip Address
-![Ububtu ip](https://github.com/user-attachments/assets/f76f7a88-2407-4ea9-b4bf-cc7a8acfa199)
-
-## 📸🌐Windows 10 Ip Address
-![windows ip](https://github.com/user-attachments/assets/50e08f01-9a0b-47dc-8e3e-6dc46f2e6283)
 
 ## ✅Phase 1: Setup and File Hosting on /Ubuntu VM
 ### 🎯Goal
