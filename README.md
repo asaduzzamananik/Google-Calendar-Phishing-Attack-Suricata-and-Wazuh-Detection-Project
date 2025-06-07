@@ -73,6 +73,7 @@ nano malicious_invite.ics
 **We need a Python script that sends an email with a proper calendar invite .ics attachment, including a friendly sender name, via Gmail SMTP.**
 
 What you need before running:
+
     -Python 3 installed
     -smtplib and email modules (built-in, no install needed)
     -Gmail App Password if your account has 2FA enabled (recommended)
