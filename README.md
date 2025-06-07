@@ -5,7 +5,7 @@ This project demonstrates a realistic phishing attack using a malicious .ics cal
 
 | **Component** | **Role** | **OS* | **Notes** |
 |---------------|-------------|---------------|-------------|
-| **Attacker**  | Ubuntu VM (Kali Linux can also be used) | **Ubuntu 22.04**  | Runs sendmail, hosts payload, sends phishing email |
+| **Attacker**  | Ubuntu VM (Kali Linux can also be used) | **Ubuntu 24.04.2**  | Runs sendmail, hosts payload, sends phishing email |
 | **Victim**    | Windows 10 VM with Wazuh Agent installed | **Windows 10**   | Opens .ics invite and executes payload |
 | **Network**   | Bridged Mode (same subnet for both VMs) | **Network**   |Allows both VMs to share network with host |
 | **IDS**   | Suricata | **On Ubuntu**   | Detects C2 traffic from payload |
