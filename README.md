@@ -58,7 +58,7 @@ END:VEVENT
 END:VCALENDAR
 ```
 ### 🧪 How to Create and Use It
-#### 📁 1. Save the .ics File
+### 📁 1. Save the .ics File
 ```bash
 nano malicious_invite.ics
 ```
