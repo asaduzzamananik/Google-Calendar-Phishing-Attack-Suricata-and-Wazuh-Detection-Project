@@ -146,7 +146,6 @@ Wazuh will log actions and forward events to the Wazuh Manager
 
 ## 🧪Phase 5: Execute the Attack
 # 1. On the Windows VM (Victim):
-
 Open Email Client:
   -Access the email account configured to receive the phishing email.
 Open the Received Email:
@@ -158,7 +157,7 @@ Click the Link in the Invite:
 Execute the Payload:
   -Run the downloaded newpayload.exe file.
 
-# 2.On the Kali Linux VM (Attacker):
+## 2.On the Kali Linux VM (Attacker):
 # 1.Start Metasploit Listener:
 ```bash
 msfconsole
@@ -222,3 +221,23 @@ sudo systemctl restart suricata
  ```bash
 sudo tail -f /var/log/suricata/fast.log
 ```
+When victim downloads the payload, Suricata triggers the alert.
+
+________________________________________
+✅ Final Outcome
+•	📨 Email with .ics invite sent to victim
+•	📅 Victim clicks calendar link
+•	🐚 Reverse shell gained on attacker
+•	📡 Wazuh logs system behavior
+•	🚨 Suricata detects suspicious traffic
+
+________________________________________
+📚 Credits
+Inspired by real-world phishing detection cases and lab simulation techniques.
+________________________________________
+🔐 Disclaimer
+This project is for educational and ethical testing purposes only. Never test on unauthorized systems.
+
+
+
+
