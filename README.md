@@ -123,7 +123,7 @@ msg.add_attachment(
     ics_content.encode('utf-8'),
     maintype='text',
     subtype='calendar',
-    filename='invite.ics',
+    filename='malicious_invite',
     disposition='attachment',
     headers=['Content-Class: urn:content-classes:calendarmessage']
 )
