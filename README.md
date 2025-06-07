@@ -1,4 +1,4 @@
-#### 🛡️Google-Calendar-Phishing-Attack-Suricata-and-Wazuh-Detection-Project
+## 🛡️Google-Calendar-Phishing-Attack-Suricata-and-Wazuh-Detection-Project
 This project demonstrates a realistic phishing attack using a malicious .ics calendar invite to deliver a payload and how to detect and alert on it using Suricata IDS.
 
 ## 📌 Lab Setup
