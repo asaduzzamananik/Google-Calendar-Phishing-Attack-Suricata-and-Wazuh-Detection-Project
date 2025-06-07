@@ -11,6 +11,8 @@ This project demonstrates a realistic phishing attack using a malicious .ics cal
 | **IDS**   | Suricata | **On Ubuntu**   | Detects C2 traffic from payload |
 
 
+
+
 ## ✅Phase 1: Setup and File Hosting on /Ubuntu VM
 ### 🎯Goal
 Generate a reverse shell payload to be delivered via phishing.
