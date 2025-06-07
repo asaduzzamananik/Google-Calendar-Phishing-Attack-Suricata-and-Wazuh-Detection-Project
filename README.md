@@ -10,11 +10,11 @@ This project demonstrates a realistic phishing attack using a malicious .ics cal
 | **Network**   | Bridged Mode (same subnet for both VMs) | **Network**   |Allows both VMs to share network with host |
 | **IDS**   | Suricata | **On Ubuntu**   | Detects C2 traffic from payload |
 
-## 🌐 Ubuntu Network Config
-![Ubuntu Network](./Ubuntu_network.JPG)
-## 🌐 Windows 10 Network Config
-![Windows Network](./windows%2010%20network.JPG)
+## 📸🌐Ubuntu Network Config
+![Ubuntu_network](https://github.com/user-attachments/assets/d7b14041-237f-4890-b78e-6f38af0a5596)
 
+## 📸🌐Windows 10 Network Config
+![windows 10 network](https://github.com/user-attachments/assets/d1c0d41c-61b2-4159-aa04-b044fee20eb6)
 
 
 ## ✅Phase 1: Setup and File Hosting on /Ubuntu VM
@@ -63,7 +63,8 @@ LOCATION:http://192.168.0.107/newpayload.exe
 END:VEVENT
 END:VCALENDAR
 ```
-### 🧪 How to Create and Use It
+
+## 🧪 How to Create and Use It
 ### 📁 1. Save the .ics File
 ```bash
 nano malicious_invite.ics
@@ -143,12 +144,20 @@ finally:
 ```bash
 python3 send_calendar_invite.py
 ```
+## 📸Email sent successfully
+![Email sent successfully](https://github.com/user-attachments/assets/939a550e-3469-490b-9be5-81915e818421)
+
+
 ## 🖥️ Phase 4: Setup Wazuh Agent on Victim
 🧰 Steps
 1.	Download Wazuh Agent for Windows.
 2.	During setup, enter your attacker's IP as Wazuh Manager.
 4.	Start the agent from Windows Services.
 Wazuh will log actions and forward events to the Wazuh Manager
+
+## 📸Wazuh Agent
+![Wazuh Agent](https://github.com/user-attachments/assets/2f24a328-33d2-497e-bacf-e5cffdd6937f)
+
 
 ## 🧪Phase 5: Execute the Attack
 ### 1. On the Windows VM (Victim):
@@ -162,6 +171,9 @@ Click the Link in the Invite:
   -Click on the link provided in the calendar invite to download the payload.
 Execute the Payload:
   -Run the downloaded newpayload.exe file.
+  
+## 📸PayLoad
+![payload path](https://github.com/user-attachments/assets/6a4fd379-efb9-40c1-8486-da1f09776665)
 
 ### 2.On the Kali Linux VM (Attacker):
 #### 1.Start Metasploit Listener:
@@ -180,6 +192,11 @@ Replace 192.168.56.101 with your Kali Linux host-only IP address.
 #### 3.Establish Session:
 Once the victim executes the payload, a Meterpreter session should be established.
 
+## 📸Connection Established
+![exploition](https://github.com/user-attachments/assets/f0649010-74bd-4f4a-a799-2276c69c725c)
+
+![UID](https://github.com/user-attachments/assets/27703320-b732-432d-afb3-d438e26ee3a5)
+
 ## 🔍 Phase 5: Detecting the Attack with Suricata
 ### 1.Create Custom Suricata Rules
 1.Edit local.rules File:
@@ -196,6 +213,9 @@ alert tcp any any -> any 4444 (msg:"Possible Reverse Shell Connection"; sid:1000
   -Press Enter to confirm.
   -Press Ctrl + X to exit.
   
+## 📸local.rules File
+  ![local rules](https://github.com/user-attachments/assets/472dec1c-85a6-4359-8800-259c0285bb94)
+
 ### Edit Suricata config to load local.rules
 Open the Suricata configuration file:
 ```bash
@@ -208,13 +228,15 @@ Modify it like this (if not already present):
 rule-files:
   - local.rules
 ```
-
 -Make sure this block is under the default-rule-path: section like below:
 ```bash
 default-rule-path: /etc/suricata/rules
 rule-files:
   - local.rules
 ```
+## 📸local.rules Path
+![local rules path](https://github.com/user-attachments/assets/572c484a-ac49-482a-a003-c13e84e53670)
+
 ### Test the Suricata configuration
 ```bash
 sudo suricata -T -c /etc/suricata/suricata.yaml -v
@@ -230,6 +252,12 @@ sudo systemctl restart suricata
 sudo tail -f /var/log/suricata/fast.log
 ```
 When victim downloads the payload, Suricata triggers the alert.
+
+![alert](https://github.com/user-attachments/assets/8c022e3a-f4bc-49e3-9e1b-a92a7c0b9915)
+
+✅ Insight:
+This alert confirms that Suricata successfully identified a suspicious outbound TCP connection pattern often associated with reverse shells. This detection helps in identifying early stages of post-exploitation or command-and-control (C2) activity in a compromised environment.
+
 
 ________________________________________
 ✅ Final Outcome
