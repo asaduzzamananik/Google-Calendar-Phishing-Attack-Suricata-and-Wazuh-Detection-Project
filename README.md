@@ -1,5 +1,5 @@
 # 🛡️Google-Calendar-Phishing-Attack-Suricata-and-Wazuh-Detection-Project
-This project replicates a phishing attack using a malicious .ics calendar invite that delivers a reverse shell payload, and shows how to detect this attack using Suricata (an IDS) and Wazuh (a SIEM platform). This simulation is inspired by real-world techniques that abuse trusted calendar systems like Google Calendar for malware delivery and command-and-control (C2) communication.
+This project replicates a phishing attack using a malicious **.ics** calendar invite that delivers a reverse shell payload, and shows how to detect this attack using **Suricata** (an IDS) and **Wazuh** (a SIEM platform). This simulation is inspired by real-world techniques that abuse trusted calendar systems like Google Calendar for malware delivery and **command-and-control (C2)** communication.
 
 ---
 ## 🧪 Objective
