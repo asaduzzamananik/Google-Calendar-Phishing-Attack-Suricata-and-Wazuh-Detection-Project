@@ -177,8 +177,8 @@ finally:
     server.quit()
 ```
 ### How to use:
-1.Save this as send_calendar_invite.py in the same folder as your malicious_invite.ics.
-2.Run the script with:
+  - Save this as send_calendar_invite.py in the same folder as your malicious_invite.ics.
+  - Run the script with:
 ```bash
 python3 send_calendar_invite.py
 ```
