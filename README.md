@@ -78,7 +78,7 @@ This step simulates malware hosted on an attacker-controlled server. It's a comm
 ## Phase 2: 📆Create Malicious Calendar Invite (.ics)
 The ICS file is a standard format used by calendar apps like Outlook, Thunderbird, and Google Calendar. In this attack, the .ics file is weaponized with a malicious URL in the DESCRIPTION and LOCATION fields.
 
-Create a file named malicious_invite.ics:
+Create a file named **malicious_invite.ics**:
 ```bash
 nano malicious_invite.ics
 ```
@@ -111,10 +111,11 @@ Why it works: Many email clients render .ics files directly as invitations, ofte
 **We need a Python script that sends an email with a proper calendar invite .ics attachment, including a friendly sender name, via Gmail SMTP.**
 
 What you need before running:
-    - Python 3 installed
-    - smtplib and email modules (built-in, no install needed)
-    - Gmail App Password if your account has 2FA enabled (recommended)
-    - Your .ics file ready
+  - Python 3 installed
+  - smtplib and email modules (built-in, no install needed)
+  - Gmail App Password if your account has 2FA enabled (recommended)
+  - Your .ics file ready
+
     
 ### Python script to send .ics invite with friendly sender name
 #### 📁 Save the .py File
@@ -191,15 +192,15 @@ python3 send_calendar_invite.py
 ## 🧪Phase 4: Execute the Attack
 ### 1. On the Windows VM (Victim):
 Open Email Client:
-  -Access the email account configured to receive the phishing email.
+  - Access the email account configured to receive the phishing email.
 Open the Received Email:
-  -Locate and open the email with the subject "Urgent Security Update Required".
+  - Locate and open the email with the subject "Urgent Security Update Required".
 Open the Attached Calendar Invite:
-  -Open the malicious_invite.ics attachment.
+  - Open the malicious_invite.ics attachment.
 Click the Link in the Invite:
-  -Click on the link provided in the calendar invite to download the payload.
+  - Click on the link provided in the calendar invite to download the payload.
 Execute the Payload:
-  -Run the downloaded newpayload.exe file.
+  - Run the downloaded newpayload.exe file.
   
 ## 📸PayLoad
 ![payload path](https://github.com/user-attachments/assets/6a4fd379-efb9-40c1-8486-da1f09776665)
