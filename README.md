@@ -192,16 +192,33 @@ python3 send_calendar_invite.py
 
 ## 🧪Phase 4: Execute the Attack
 ### 1. On the Windows VM (Victim):
-Open Email Client:
-  - Access the email account configured to receive the phishing email.
-Open the Received Email:
-  - Locate and open the email with the subject "Urgent Security Update Required".
-Open the Attached Calendar Invite:
-  - Open the **malicious_invite.ics** attachment.
-Click the Link in the Invite:
-  - Click on the link provided in the calendar invite to download the payload.
-Execute the Payload:
-  - Run the downloaded **newpayload.exe** file.
+Steps:
+1.Open Email Client:
+  - Log in to the victim’s email account configured to receive the phishing email.
+  - Locate the email with subject "Urgent Security Update Required" in the inbox.
+2. Open Received Email:
+  - Open the phishing email.
+  - Download and open the attached calendar invite file named malicious_invite.ics.
+3. Open the Attached Calendar Invite:
+  - Open the .ics file. The invite should show the event titled "Urgent Security Update".
+  - Click the link inside the calendar invite (http://192.168.0.107/newpayload.exe) to download the payload executable.
+4. Disable Windows Defender Temporarily:
+**Note: Windows Defender may block the payload download or execution. To bypass this in the lab environment, disable real-time protection temporarily via the registry:**
+  - Press Win + R, type regedit, and press Enter to open Registry Editor.
+    
+```bash
+HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
+```
+  - If the key DisableAntiSpyware does not exist, create a new DWORD (32-bit) value named DisableAntiSpyware.
+  - Set the value of DisableAntiSpyware to 1.
+  - Restart the victim machine or restart Windows Defender services for the change to take effect.
+Alternatively, you can disable Windows Defender real-time protection temporarily via the Settings app:
+  - Go to Settings > Update & Security > Windows Security > Virus & threat protection > Manage settings.
+  - Turn off Real-time protection (remember to turn it back on after testing).
+5. Run the Downloaded Payload:
+  - Locate the downloaded file newpayload.exe (usually in the Downloads folder).
+  - Double-click to execute it.
+  - This should open a reverse shell session back to the attacker.
   
 ## 📸PayLoad
 ![payload path](https://github.com/user-attachments/assets/6a4fd379-efb9-40c1-8486-da1f09776665)
