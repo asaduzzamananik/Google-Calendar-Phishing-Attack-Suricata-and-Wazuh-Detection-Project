@@ -355,11 +355,11 @@ This alert confirms that Suricata successfully identified a suspicious outbound 
 
 ________________________________________
 ✅ Final Outcome
-•	📨 Email with .ics invite sent to victim
-•	📅 Victim clicks calendar link
-•	🐚 Reverse shell gained on attacker
-•	📡 Wazuh logs system behavior
-•	🚨 Suricata detects suspicious traffic
+- 📨 Email with .ics invite sent to victim
+- 📅 Victim clicks calendar link
+- 🐚 Reverse shell gained on attacker
+- 📡 Wazuh logs system behavior
+- 🚨 Suricata detects suspicious traffic
 
 ________________________________________
 📚 Credits
