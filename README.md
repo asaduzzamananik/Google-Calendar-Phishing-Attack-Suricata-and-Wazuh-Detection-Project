@@ -1,4 +1,4 @@
-# 🛡Google-Calendar-Phishing-Attack-Suricata-and-Wazuh-Detection-Project
+# Google-Calendar-Phishing-Attack-Suricata-and-Wazuh-Detection-Project
 This project replicates a phishing attack using a malicious **.ics** calendar invite that delivers a reverse shell payload, and shows how to detect this attack using **Suricata** (an IDS) and **Wazuh** (a SIEM platform). This simulation is inspired by real-world techniques that abuse trusted calendar systems like Google Calendar for malware delivery and **command-and-control (C2)** communication.
 
 ---
@@ -14,7 +14,7 @@ This project replicates a phishing attack using a malicious **.ics** calendar in
 
 ---
 
-##  Lab Setup
+## Lab Setup
 
 - Use **Briged Adapter** (or Internal Network) for both VMs:
   - Go to: *VirtualBox → Settings → Network*
@@ -39,7 +39,7 @@ Repeat the same for **Windows VM**.
 
 ---
 
-## ✅Phase 1: Setup and File Hosting on /Ubuntu VM
+## Phase 1: Setup and File Hosting on /Ubuntu VM
 ### Goal
 Generate a reverse shell payload to be delivered via phishing.
 #### 1.1 Generate Payload:
@@ -108,7 +108,7 @@ Why it works: Many email clients render .ics files directly as invitations, ofte
 
 ---
 
-## Phase 3: 📧 Send Phishing Email (from Ubuntu)
+## Phase 3: Send Phishing Email (from Ubuntu)
 **We need a Python script that sends an email with a proper calendar invite .ics attachment, including a friendly sender name, via Gmail SMTP.**
 
 What you need before running:
@@ -349,12 +349,12 @@ When victim downloads the payload, Suricata triggers the alert.
 
 ---
 
-✅ Insight:
+  **Insight:**
 This alert confirms that Suricata successfully identified a suspicious outbound TCP connection pattern often associated with reverse shells. This detection helps in identifying early stages of post-exploitation or command-and-control (C2) activity in a compromised environment.
 
 
 ________________________________________
-✅ Final Outcome
+ **Final Outcome**
 -  Email with .ics invite sent to victim
 -  Victim clicks calendar link
 -  Reverse shell gained on attacker
@@ -362,7 +362,7 @@ ________________________________________
 -  Suricata detects suspicious traffic
 
 ________________________________________
- Credits
+ **Credits**
 Inspired by real-world phishing detection cases and lab simulation techniques.
 ________________________________________
 🔐 Disclaimer
