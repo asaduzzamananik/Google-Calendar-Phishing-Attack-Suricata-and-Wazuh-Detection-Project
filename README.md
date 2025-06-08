@@ -14,30 +14,6 @@ This project replicates a phishing attack using a malicious .ics calendar invite
 
 ---
 
-## 📚 Table of Contents
-•	📌 Lab Setup
-o	🌐 Ubuntu Network Config
-o	🌐 Windows 10 Network Config
-________________________________________
-🛠️ Attack Simulation & Detection Phases
-•	✅ Phase 1: Setup and File Hosting on Ubuntu VM
-o	🎯 Payload Generation with msfvenom
-o	🌐 Hosting Payload via Apache
-•	📆 Phase 2: Create Malicious Calendar Invite (.ics)
-o	📄 Crafting .ics File with Embedded Payload Link
-•	📧 Phase 3: Send Phishing Email (from Ubuntu)
-o	📜 Python Script for Sending .ics File via Gmail SMTP
-•	🧪 Phase 4: Execute the Attack
-o	🖥️ Victim Opens Email & Payload
-o	💻 Attacker Gains Reverse Shell Access
-•	🔍 Phase 5: Wazuh Host Monitoring
-o	⚙️ Install & Connect Wazuh Agent to Manager
-•	🧠 Phase 6: Detecting the Attack with Suricata
-o	🛡️ Write Custom Suricata Rules
-o	🧪 Validate & Restart Suricata Configuration
-o	📈 Confirm Detection via fast.log
-
-
 ## 📌 Lab Setup
 
 - Use **Briged Adapter** (or Internal Network) for both VMs:
@@ -97,6 +73,8 @@ http://192.168.56.107/newpayload.exe
 ## 🧠 Why?
 This step simulates malware hosted on an attacker-controlled server. It's a common initial access vector in phishing attacks.
 
+---
+
 ## Phase 2: 📆Create Malicious Calendar Invite (.ics)
 The ICS file is a standard format used by calendar apps like Outlook, Thunderbird, and Google Calendar. In this attack, the .ics file is weaponized with a malicious URL in the DESCRIPTION and LOCATION fields.
 
@@ -126,6 +104,8 @@ Save and Exit:
   -Press Ctrl + X to exit.
   
 Why it works: Many email clients render .ics files directly as invitations, often auto-parsing the DESCRIPTION into clickable links.
+
+---
 
 ## Phase 3: 📧 Send Phishing Email (from Ubuntu)
 **We need a Python script that sends an email with a proper calendar invite .ics attachment, including a friendly sender name, via Gmail SMTP.**
@@ -206,6 +186,7 @@ python3 send_calendar_invite.py
 ## 📸Email sent successfully
 ![Email sent successfully](https://github.com/user-attachments/assets/939a550e-3469-490b-9be5-81915e818421)
 
+---
 
 ## 🧪Phase 4: Execute the Attack
 ### 1. On the Windows VM (Victim):
@@ -247,6 +228,8 @@ Once the victim executes the payload, a Meterpreter session should be establishe
 
 ![UID](https://github.com/user-attachments/assets/27703320-b732-432d-afb3-d438e26ee3a5)
 
+---
+
 ## 🔍 Phase 5: Wazuh Host Monitoring
 
 🎯 Goal: Detect suspicious host behavior from the victim's machine.
@@ -259,6 +242,7 @@ Steps:
 ## 📸Wazuh Agent
 ![Wazuh Agent](https://github.com/user-attachments/assets/2f24a328-33d2-497e-bacf-e5cffdd6937f)
 
+---
 
 ## 🔍 Phase 6: Detecting the Attack with Suricata
 ### 1.Create Custom Suricata Rules
@@ -317,6 +301,8 @@ sudo tail -f /var/log/suricata/fast.log
 When victim downloads the payload, Suricata triggers the alert.
 
 ![alert](https://github.com/user-attachments/assets/8c022e3a-f4bc-49e3-9e1b-a92a7c0b9915)
+
+---
 
 ✅ Insight:
 This alert confirms that Suricata successfully identified a suspicious outbound TCP connection pattern often associated with reverse shells. This detection helps in identifying early stages of post-exploitation or command-and-control (C2) activity in a compromised environment.
