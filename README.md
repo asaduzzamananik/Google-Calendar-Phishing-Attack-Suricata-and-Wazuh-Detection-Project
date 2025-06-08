@@ -99,9 +99,9 @@ END:VEVENT
 END:VCALENDAR
 ```
 Save and Exit:
-  -Press Ctrl + O to save.
-  -Press Enter to confirm.
-  -Press Ctrl + X to exit.
+  - Press Ctrl + O to save.
+  - Press Enter to confirm.
+  - Press Ctrl + X to exit.
   
 Why it works: Many email clients render .ics files directly as invitations, often auto-parsing the DESCRIPTION into clickable links.
 
