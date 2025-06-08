@@ -1,7 +1,28 @@
 # 🛡️Google-Calendar-Phishing-Attack-Suricata-and-Wazuh-Detection-Project
-This project demonstrates a realistic phishing attack using a malicious .ics calendar invite to deliver a payload and how to detect and alert on it using Suricata IDS.
+This project replicates a phishing attack using a malicious .ics calendar invite that delivers a reverse shell payload, and shows how to detect this attack using Suricata (an IDS) and Wazuh (a SIEM platform). This simulation is inspired by real-world techniques that abuse trusted calendar systems like Google Calendar for malware delivery and command-and-control (C2) communication.
+
+---
+## 🧪 Objective
+
+•	Simulate a realistic phishing attack using .ics calendar invites.
+
+•	Host a malicious payload and gain a reverse shell on the victim.
+
+•	Detect C2 traffic and payload access using Suricata.
+
+•	Monitor and analyze system behavior using Wazuh.
+
+---
 
 ## 📌 Lab Setup
+
+- Use **Briged Adapter** (or Internal Network) for both VMs:
+  - Go to: *VirtualBox → Settings → Network*
+  - Set `Adapter 1` → `Enable Network Adapter`
+  - Attached to: **Briged Adapter**
+  - Adapter Type: `Intel PRO/1000 MT Desktop`
+
+Repeat the same for **Windows VM**.
 
 | **Component** | **Role** | **OS* | **Notes** |
 |---------------|-------------|---------------|-------------|
@@ -46,6 +67,7 @@ Now payload is at:
 http://192.168.56.107/newpayload.exe
 
 ## Phase 2: 📆Create Malicious Calendar Invite (.ics)
+The ICS file is a standard format used by calendar apps like Outlook, Thunderbird, and Google Calendar. In this attack, the .ics file is weaponized with a malicious URL in the DESCRIPTION and LOCATION fields.
 
 Create a file named malicious_invite.ics:
 ```bash
@@ -63,6 +85,7 @@ LOCATION:http://192.168.0.107/newpayload.exe
 END:VEVENT
 END:VCALENDAR
 ```
+Why it works: Many email clients render .ics files directly as invitations, often auto-parsing the DESCRIPTION into clickable links.
 
 ## 🧪 How to Create and Use It
 ### 📁 1. Save the .ics File
@@ -73,12 +96,11 @@ nano malicious_invite.ics
 **We need a Python script that sends an email with a proper calendar invite .ics attachment, including a friendly sender name, via Gmail SMTP.**
 
 What you need before running:
-
-    -Python 3 installed
-    -smtplib and email modules (built-in, no install needed)
-    -Gmail App Password if your account has 2FA enabled (recommended)
-    -Your .ics file ready
-
+    - Python 3 installed
+    - smtplib and email modules (built-in, no install needed)
+    - Gmail App Password if your account has 2FA enabled (recommended)
+    - Your .ics file ready
+    
 ### Python script to send .ics invite with friendly sender name
 #### 📁 Save the .py File
 ```bash
