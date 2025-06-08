@@ -193,16 +193,16 @@ python3 send_calendar_invite.py
 ## 🧪Phase 4: Execute the Attack
 ### 1. On the Windows VM (Victim):
 Steps:
-1.Open Email Client:
+**1.Open Email Client:**
   - Log in to the victim’s email account configured to receive the phishing email.
   - Locate the email with subject "Urgent Security Update Required" in the inbox.
-2. Open Received Email:
+**2. Open Received Email:**
   - Open the phishing email.
   - Download and open the attached calendar invite file named malicious_invite.ics.
-3. Open the Attached Calendar Invite:
+**3. Open the Attached Calendar Invite:**
   - Open the .ics file. The invite should show the event titled "Urgent Security Update".
   - Click the link inside the calendar invite (http://192.168.0.107/newpayload.exe) to download the payload executable.
-4. Disable Windows Defender Temporarily:
+**4. Disable Windows Defender Temporarily:**
 **Note: Windows Defender may block the payload download or execution. To bypass this in the lab environment, disable real-time protection temporarily via the registry:**
   - Press Win + R, type regedit, and press Enter to open Registry Editor.
     
@@ -215,7 +215,7 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
 Alternatively, you can disable Windows Defender real-time protection temporarily via the Settings app:
   - Go to Settings > Update & Security > Windows Security > Virus & threat protection > Manage settings.
   - Turn off Real-time protection (remember to turn it back on after testing).
-5. Run the Downloaded Payload:
+**5. Run the Downloaded Payload:**
   - Locate the downloaded file newpayload.exe (usually in the Downloads folder).
   - Double-click to execute it.
   - This should open a reverse shell session back to the attacker.
@@ -279,10 +279,10 @@ Once executed, Metasploit will begin listening on the specified port (4444) and 
 
 🎯 Goal: Detect suspicious host behavior from the victim's machine.
 Steps:
-•	Install Wazuh Agent on Windows 10.
-•	Set the manager IP to Ubuntu host.
-•	Start Wazuh agent service.
-•	View alerts in Wazuh dashboard or log files.
+- Install Wazuh Agent on Windows 10.
+- Set the manager IP to Ubuntu host.
+- Start Wazuh agent service.
+- View alerts in Wazuh dashboard or log files.
 
 ## 📸Wazuh Agent
 ![Wazuh Agent](https://github.com/user-attachments/assets/2f24a328-33d2-497e-bacf-e5cffdd6937f)
