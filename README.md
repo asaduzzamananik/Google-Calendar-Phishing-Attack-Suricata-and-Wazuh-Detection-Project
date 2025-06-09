@@ -363,9 +363,11 @@ ________________________________________
 
 ________________________________________
  **Credits**
+ 
 Inspired by real-world phishing detection cases and lab simulation techniques.
 ________________________________________
-🔐 Disclaimer
+**🔐 Disclaimer**
+
 This project is for educational and ethical testing purposes only. Never test on unauthorized systems.
 
 
