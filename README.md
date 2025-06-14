@@ -293,7 +293,7 @@ Steps:
 ### 1.Create Custom Suricata Rules
 1.Edit local.rules File:
 ```bash
-sudo nano /etc/suricata/rules/local.rules
+sudo nano /var/lib/suricata/rules/local.rules
 ```
 2.Add the Following Rules:
 ```bash
